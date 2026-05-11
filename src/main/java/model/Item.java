@@ -9,5 +9,5 @@ package model;
  * @author aluno
  */
 class Item {
-    
+    private int teste;
 }
