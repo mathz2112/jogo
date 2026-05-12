@@ -9,7 +9,7 @@ package model;
  * @author aluno
  */
 public class Boss extends Inimigo{
-    //Capi - encontrado na floresta de amora
+    //Capi - encontrado na floresta de amoras
     private String habilidadeEspecial;
 
     public String getHabilidadeEspecial() {
