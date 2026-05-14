@@ -13,7 +13,7 @@ import java.time.Instant;
  */
 public class Partida {
     private int id;
-    private Instant data; //bd > data
+    private Instant data; //bd => data
     private int estudanteId;
     private int pontuacao;
     private int inimigosDerrotados;
