@@ -8,7 +8,7 @@ package model;
 /**
  * @author aluno
  */
-public class Boss extends Inimigo{
+public class Chefe extends Inimigo{
     //Capi - encontrado na floresta de amoras
     private String habilidadeEspecial;
 
@@ -20,7 +20,7 @@ public class Boss extends Inimigo{
         this.habilidadeEspecial = habilidadeEspecial;
     }
 
-    public Boss(String habilidadeEspecial, String nome, int vida, int dano, int xpConcedido) {
+    public Chefe(String habilidadeEspecial, String nome, int vida, int dano, int xpConcedido) {
         super(nome, vida, dano, xpConcedido);
         this.habilidadeEspecial = habilidadeEspecial;
     }

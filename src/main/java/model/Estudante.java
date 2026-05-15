@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author aluno
  */
-public class Jogador {
+public class Estudante {
     private int id;
     private int vida;
     private int dano;
@@ -74,7 +74,7 @@ public class Jogador {
         this.inventario = inventario;
     }
 
-    public Jogador(int id, int vida, int dano, int dinheiro, int xp, int nivel, List<Item> inventario) {
+    public Estudante(int id, int vida, int dano, int dinheiro, int xp, int nivel, List<Item> inventario) {
         this.id = id;
         this.vida = vida;
         this.dano = dano;
