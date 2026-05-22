@@ -15,7 +15,7 @@ public class Partida {
     private int id;
     private Instant data; //bd => data
     private int estudanteId;
-    private int pontuacao;
+    private int pontuacao; //xp
     private int inimigosDerrotados;
     private boolean chefeDerrotado;
 

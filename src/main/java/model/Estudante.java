@@ -11,11 +11,10 @@ import java.util.List;
  */
 public class Estudante {
     private int id;
-    private int vida;
-    private int dano;
-    private int dinheiro;
-    private int xp;
-    private int nivel;
+    private int vida; //inicia 100
+    private int dano; // inicial 10
+    private int dinheiro; //inicial 0
+    private int xp; //inicial 0
     private List<Item> inventario;
 
     public int getId() {
@@ -58,14 +57,6 @@ public class Estudante {
         this.xp = xp;
     }
 
-    public int getNivel() {
-        return nivel;
-    }
-
-    public void setNivel(int nivel) {
-        this.nivel = nivel;
-    }
-
     public List<Item> getInventario() {
         return inventario;
     }
@@ -74,13 +65,12 @@ public class Estudante {
         this.inventario = inventario;
     }
 
-    public Estudante(int id, int vida, int dano, int dinheiro, int xp, int nivel, List<Item> inventario) {
+    public Estudante(int id, int vida, int dano, int dinheiro, int xp, List<Item> inventario) {
         this.id = id;
         this.vida = vida;
         this.dano = dano;
         this.dinheiro = dinheiro;
         this.xp = xp;
-        this.nivel = nivel;
         this.inventario = inventario;
     }
     
