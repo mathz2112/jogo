@@ -21,7 +21,7 @@ public class Chefe extends Inimigo{
     }
 
     public Chefe(String habilidadeEspecial, String nome, int vida, int dano, int xpConcedido) {
-        super(nome, vida, dano, xpConcedido);
+        super(id, nome, vida, dano, xpConcedido);
         this.habilidadeEspecial = habilidadeEspecial;
     }
  
