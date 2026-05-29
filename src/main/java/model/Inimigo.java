@@ -52,5 +52,11 @@ public class Inimigo {
         this.dano = dano;
         this.xpConcedido = xpConcedido;
     }
+    
+    //TESTE
+
+    public Inimigo() {
+    }
+    
  
 }

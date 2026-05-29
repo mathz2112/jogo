@@ -73,6 +73,11 @@ public class Estudante {
         this.xp = xp;
         this.inventario = inventario;
     }
+
+    public Estudante() { //TESTE
+    }
+    
+    
     
     
 }

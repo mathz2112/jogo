@@ -7,32 +7,29 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import model.Estudante;
+import model.Chefe;
 
 /**
  *
  * @author aluno
  */
-public class EstudanteDAO {
-    
-    public void estudanteDAO(Estudante estudante) {
+public class ChefeDAO {
+    public void chefeDAO(Chefe chefe, int inimigoId) {
 
-        String sql = "INSERT INTO estudante(vida,dano,dinheiro,xp) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO chefe (inimigo_id, habilidade_especial) VALUES (?, ?)";
 
         try {
 
             Connection conn = ConnectionFactory.getConnection();
 
             PreparedStatement stmt = conn.prepareStatement(sql);
-            
-            stmt.setInt(1, estudante.getVida());
-            stmt.setInt(2, estudante.getDano());
-            stmt.setInt(3, estudante.getDinheiro());
-            stmt.setInt(4, estudante.getXp());
+
+            stmt.setInt(1, inimigoId);
+            stmt.setString(2, chefe.getHabilidadeEspecial());
 
             stmt.executeUpdate();
 
-            System.out.println("Estudante salvo com sucesso!");
+            System.out.println("Chefe salvo com sucesso!");
 
             stmt.close();
             conn.close();
@@ -40,6 +37,8 @@ public class EstudanteDAO {
         } catch (SQLException e) {
 
             System.out.println(e);
+
         }
     }
+    
 }

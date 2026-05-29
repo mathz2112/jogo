@@ -76,6 +76,10 @@ public class Partida {
         this.chefeDerrotado = chefeDerrotado;
     }
     
+    //TESTE
+
+    public Partida() {
+    }
     
 
 

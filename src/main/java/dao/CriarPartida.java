@@ -23,22 +23,19 @@ public class CriarPartida {
    public void create(Partida partida){
        
        String sql = "INSERT INTO partida "
-               + "(id,data,estudante_id,pontuacao,inimigos_derrotados,chefe_derrotado) VALUES (?,?,?,?,?,?)";
+               + "(data,estudante_id,pontuacao,inimigos_derrotados,chefe_derrotado) VALUES (?,?,?,?,?,?)";
        
-       ConnectionFactory conexao = new ConnectionFactory();
+       ConnectionFactory conn = new ConnectionFactory();
        
        try{
-           Connection connection = conexao.getConnection();
+           Connection connection = conn.getConnection();
            
            PreparedStatement stmt = connection.prepareStatement(sql);
-           stmt.setInt(1, partida.getId());
-           stmt.setTimestamp(2, Timestamp.from(Instant.now()));
-           stmt.setInt(3, partida.getEstudanteId());
-           stmt.setInt(4, partida.getPontuacao());
-           stmt.setInt(5, partida.getInimigosDerrotados());
-           stmt.setBoolean(6, partida.isChefeDerrotado());
-           
-           System.out.println("dfdfdf");
+           stmt.setTimestamp(1, Timestamp.from(Instant.now()));
+           stmt.setInt(2, partida.getEstudanteId());
+           stmt.setInt(3, partida.getPontuacao());
+           stmt.setInt(4, partida.getInimigosDerrotados());
+           stmt.setBoolean(5, partida.isChefeDerrotado());
            
            int linhasAfetadas = stmt.executeUpdate();
            
@@ -50,4 +47,5 @@ public class CriarPartida {
            System.out.println(e);
        }
    }
+   
 }

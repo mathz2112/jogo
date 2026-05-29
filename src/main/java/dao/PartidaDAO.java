@@ -7,32 +7,32 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import model.Estudante;
+import model.Partida;
 
 /**
  *
  * @author aluno
  */
-public class EstudanteDAO {
-    
-    public void estudanteDAO(Estudante estudante) {
+public class PartidaDAO {
+     public void partidaDAO(Partida partida) {
 
-        String sql = "INSERT INTO estudante(vida,dano,dinheiro,xp) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO partida (data, estudante_id, pontuacao, inimigos_derrotados, chefe_derrotado) VALUES (?, ?, ?, ?, ?)";
 
         try {
 
             Connection conn = ConnectionFactory.getConnection();
 
             PreparedStatement stmt = conn.prepareStatement(sql);
-            
-            stmt.setInt(1, estudante.getVida());
-            stmt.setInt(2, estudante.getDano());
-            stmt.setInt(3, estudante.getDinheiro());
-            stmt.setInt(4, estudante.getXp());
+
+            stmt.setTimestamp(1, java.sql.Timestamp.from(partida.getData()));
+            stmt.setInt(2, partida.getEstudanteId());
+            stmt.setInt(3, partida.getPontuacao());
+            stmt.setInt(4, partida.getInimigosDerrotados());
+            stmt.setBoolean(5, partida.isChefeDerrotado());
 
             stmt.executeUpdate();
 
-            System.out.println("Estudante salvo com sucesso!");
+            System.out.println("Partida salva com sucesso!");
 
             stmt.close();
             conn.close();
@@ -40,6 +40,7 @@ public class EstudanteDAO {
         } catch (SQLException e) {
 
             System.out.println(e);
+
         }
     }
 }

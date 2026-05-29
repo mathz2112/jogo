@@ -10,7 +10,7 @@ import util.tipoItem;
  *
  * @author aluno
  */
-class Item {
+public class Item {
     private String nome;
     private tipoItem tipoItem; // arma, consumível, chave [ENUM]
     private String descricao;
