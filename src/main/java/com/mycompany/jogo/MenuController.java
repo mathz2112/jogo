@@ -14,7 +14,7 @@ public class MenuController {
 
     @FXML
     private void jogar() throws IOException {
-        App.setRoot("introducao");
+        App.setRoot("gameplay");
     }
     
     @FXML 
