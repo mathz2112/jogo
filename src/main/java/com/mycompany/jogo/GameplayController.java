@@ -8,13 +8,25 @@ package com.mycompany.jogo;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.image.ImageView;
+import util.sistemaDialogo;
 
-/**
- * 
- * @author aluno
- */
 public class GameplayController {
-@FXML
+
+    @FXML
+    private ProgressBar vidaBar;
+
+    @FXML
+    private ProgressBar xpBar;
+
+    @FXML
+    private Button inventarioButton;
+
+    @FXML
+    private ImageView cenarioImage;
+
+    @FXML
     private Label nomeLabel;
 
     @FXML
@@ -26,14 +38,33 @@ public class GameplayController {
     @FXML
     private Button botao2;
 
+    private sistemaDialogo dialogo;
+
     @FXML
-    public void escolha1() {
-        dialogoLabel.setText("Você escolheu a primeira opção.");
+    public void initialize() {
+
+        dialogo = new sistemaDialogo();
+
+        atualizarTela();
     }
 
     @FXML
-    public void escolha2() {
-        dialogoLabel.setText("Você escolheu a segunda opção.");
+    private void escolha1() {
+
+    }
+
+    @FXML
+    private void escolha2() {
+
+    }
+
+    @FXML
+    private void abrirInventario() {
+
+    }
+
+    private void atualizarTela() {
+
     }
 
 }
