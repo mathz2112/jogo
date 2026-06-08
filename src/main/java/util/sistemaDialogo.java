@@ -108,5 +108,52 @@ public class sistemaDialogo {
                 return "Continuar";
         }
     }
+    
+    public String getOpcao2() {
+
+        switch(localAtual) {
+
+            case ENTRADA:
+
+                if(dialogoAtual < 2) {
+                    return "";
+                }
+
+                return "Ir para o Bloco B";
+
+            default:
+                return "";
+        }
+    }
+
+    public void escolha1() {
+
+        switch(localAtual) {
+
+            case ENTRADA:
+
+                if(dialogoAtual < 2) {
+                    proximoDialogo();
+                } else {
+                    mudarLocal(Local.BLOCO_A);
+                }
+
+                break;
+        }
+    }
+
+    public void escolha2() {
+
+        switch(localAtual) {
+
+            case ENTRADA:
+
+                if(dialogoAtual >= 2) {
+                    mudarLocal(Local.BLOCO_B);
+                }
+
+                break;
+        }
+    }
 }
 
