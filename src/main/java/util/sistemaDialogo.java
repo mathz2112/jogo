@@ -9,7 +9,7 @@ import util.Local;
 
 public class sistemaDialogo {
 
-    private Local localAtual;
+   private Local localAtual;
     private int dialogoAtual;
 
     public sistemaDialogo() {
@@ -47,49 +47,54 @@ public class sistemaDialogo {
                 switch(dialogoAtual) {
 
                     case 0:
-                        return "Dialogo de teste 1";
+                        return "Pintas desapareceu.";
 
                     case 1:
-                        return "Dialogo de teste 2";
+                        return "Preciso investigar o IFMS.";
 
                     case 2:
-                        return "Para onde devo ir?";
+                        return "Por onde devo começar?";
+
+                    default:
+                        return "";
                 }
 
-                break;
-
             case BLOCO_A:
-                return "Dialogo temporario do Bloco A.";
+                return "Voce encontrou um Livro do Governo.";
 
             case BLOCO_B:
-                return "Dialogo temporario do Bloco B.";
+                return "A porta esta trancada.";
 
             case BLOCO_C:
-                return "Dialogo temporario do Bloco C.";
+                return "Um Quero-Quero bloqueia seu caminho.";
 
             case BLOCO_D_TERREO:
-                return "Dialogo temporario do Bloco D Terreo.";
+                return "Voce esta no terreo do Bloco D.";
 
             case BLOCO_D_SEGUNDO_ANDAR:
-                return "Dialogo temporario do Bloco D Segundo Andar.";
+                return "Voce encontrou um extintor de incendio.";
+
+            case CANTINA:
+                return "Lo e Ja estao atendendo o caixa.";
 
             case CAMINHO_BLOCO_E:
-                return "Dialogo temporario do Caminho para o Bloco E.";
+                return "Uma coruja observa voce.";
 
             case BLOCO_E:
-                return "Dialogo temporario do Bloco E.";
+                return "O local parece abandonado.";
 
             case BLOCO_F:
-                return "Dialogo temporario do Bloco F.";
+                return "O Tio do Pastel sorri para voce.";
 
             case QUADRA:
-                return "Dialogo temporario da Quadra.";
+                return "Ha varios objetos espalhados pela quadra.";
 
             case FLORESTA_AMORAS:
-                return "Dialogo temporario da Floresta de Amoras.";
-        }
+                return "Pintas esta presa!";
 
-        return "";
+            default:
+                return "";
+        }
     }
 
     public String getOpcao1() {
@@ -98,28 +103,41 @@ public class sistemaDialogo {
 
             case ENTRADA:
 
-                if(dialogoAtual < 2) {
+                if(dialogoAtual < 2)
                     return "Continuar";
-                }
 
-                return "Ir para o Bloco A";
+                return "Bloco A";
+
+            case BLOCO_B:
+                return "Voltar";
+
+            case BLOCO_D_TERREO:
+                return "Cantina";
+
+            case BLOCO_D_SEGUNDO_ANDAR:
+                return "Voltar";
+
+            case FLORESTA_AMORAS:
+                return "Falar com Pintas";
 
             default:
                 return "Continuar";
         }
     }
-    
+
     public String getOpcao2() {
 
         switch(localAtual) {
 
             case ENTRADA:
 
-                if(dialogoAtual < 2) {
+                if(dialogoAtual < 2)
                     return "";
-                }
 
-                return "Ir para o Bloco B";
+                return "Bloco B";
+
+            case BLOCO_D_TERREO:
+                return "2 Andar";
 
             default:
                 return "";
@@ -137,7 +155,18 @@ public class sistemaDialogo {
                 } else {
                     mudarLocal(Local.BLOCO_A);
                 }
+                break;
 
+            case BLOCO_B:
+                mudarLocal(Local.ENTRADA);
+                break;
+
+            case BLOCO_D_TERREO:
+                mudarLocal(Local.CANTINA);
+                break;
+
+            case BLOCO_D_SEGUNDO_ANDAR:
+                mudarLocal(Local.BLOCO_D_TERREO);
                 break;
         }
     }
@@ -147,11 +176,13 @@ public class sistemaDialogo {
         switch(localAtual) {
 
             case ENTRADA:
-
                 if(dialogoAtual >= 2) {
                     mudarLocal(Local.BLOCO_B);
                 }
+                break;
 
+            case BLOCO_D_TERREO:
+                mudarLocal(Local.BLOCO_D_SEGUNDO_ANDAR);
                 break;
         }
     }
