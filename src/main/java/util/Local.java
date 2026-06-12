@@ -15,7 +15,11 @@ public enum Local {
     BLOCO_E,
     BLOCO_F,
     QUADRA,
-    FLORESTA_AMORAS
+    FLORESTA_AMORAS,
+    BLOCO_D_TERREO,
+    BLOCO_D_SEGUNDO_ANDAR,
+    CANTINA
+    
 
 }
 

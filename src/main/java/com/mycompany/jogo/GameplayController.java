@@ -12,6 +12,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import util.sistemaDialogo;
 
+
 public class GameplayController {
 
     @FXML
@@ -49,14 +50,49 @@ public class GameplayController {
     }
 
     @FXML
-    private void escolha1() {
+private void escolha1() {
 
+    if(!dialogo.terminouDialogo()) {
+
+        dialogo.proximoDialogo();
+        atualizarTela();
+        return;
     }
+
+    switch(dialogo.getLocalAtual()) {
+
+        case ENTRADA:
+            dialogo.mudarLocal(util.Local.BLOCO_A);
+            break;
+
+        case BLOCO_A:
+            dialogo.mudarLocal(util.Local.BLOCO_D_TERREO);
+            break;
+    }
+
+    atualizarTela();
+}
 
     @FXML
-    private void escolha2() {
+private void escolha2() {
 
+    if(!dialogo.terminouDialogo()) {
+        return;
     }
+
+    switch(dialogo.getLocalAtual()) {
+
+        case ENTRADA:
+            dialogo.mudarLocal(util.Local.BLOCO_B);
+            break;
+
+        case BLOCO_A:
+            dialogo.mudarLocal(util.Local.BLOCO_F);
+            break;
+    }
+
+    atualizarTela();
+}
 
     @FXML
     private void abrirInventario() {
@@ -65,7 +101,35 @@ public class GameplayController {
 
     private void atualizarTela() {
 
+    nomeLabel.setText(dialogo.getNomeAtual());
+
+    dialogoLabel.setText(dialogo.getTextoAtual());
+
+    if(!dialogo.terminouDialogo()) {
+
+        botao1.setText("Continuar");
+        botao2.setVisible(false);
+
+    } else {
+
+        switch(dialogo.getLocalAtual()) {
+
+            case ENTRADA:
+
+                botao1.setText("Bloco A");
+                botao2.setText("Bloco B");
+                botao2.setVisible(true);
+                break;
+
+            case BLOCO_A:
+
+                botao1.setText("Bloco D");
+                botao2.setText("Bloco F");
+                botao2.setVisible(true);
+                break;
+        }
     }
+}
 
 }
 

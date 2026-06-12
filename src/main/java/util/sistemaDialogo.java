@@ -5,11 +5,13 @@
 
 package util;
 
+import java.util.ArrayList;
+import java.util.List;
 import util.Local;
 
 public class sistemaDialogo {
 
-   private Local localAtual;
+ private Local localAtual;
     private int dialogoAtual;
 
     public sistemaDialogo() {
@@ -17,8 +19,8 @@ public class sistemaDialogo {
         dialogoAtual = 0;
     }
 
-    public void proximoDialogo() {
-        dialogoAtual++;
+    public Local getLocalAtual() {
+        return localAtual;
     }
 
     public void mudarLocal(Local local) {
@@ -26,165 +28,81 @@ public class sistemaDialogo {
         dialogoAtual = 0;
     }
 
-    public Local getLocalAtual() {
-        return localAtual;
-    }
-
-    public int getDialogoAtual() {
-        return dialogoAtual;
-    }
-
     public String getNomeAtual() {
-        return "Voce";
+        return "Você";
+    }
+
+    private List<String> getDialogos() {
+
+        List<String> falas = new ArrayList<>();
+
+        switch(localAtual) {
+
+            case ENTRADA:
+
+                falas.add("Já fazem semanas que a Pintas desapareceu e ninguém fez nada.");
+                falas.add("Talvez olhando pelo campus eu consiga encontrar alguma pista.");
+                falas.add("Sei que não é a melhor ideia entrar na escola tão tarde assim, mas o que de pior pode acontecer, né?");
+                break;
+
+            case BLOCO_A:
+
+                falas.add("Um livro do governo? Posso usar para me defender.");
+                falas.add("[Você encontrou o Livro do Governo]");
+                break;
+
+            case BLOCO_B:
+
+                falas.add("Está trancado.");
+                break;
+
+            case BLOCO_C:
+
+                falas.add("[Você se depara com um quero-quero raivoso]");
+                falas.add("[BATALHA]");
+                falas.add("[Você ganhou +50 XP]");
+                falas.add("O que foi isso? Que bloco esquisito!");
+                break;
+
+            case BLOCO_D_SEGUNDO_ANDAR:
+
+                falas.add("[Você encontrou um extintor de incêndio]");
+                break;
+
+            case CANTINA:
+
+                falas.add("Aquelas são as gêmeas Lo e Ja? O que elas estão fazendo aqui?");
+                break;
+
+            case CAMINHO_BLOCO_E:
+
+                falas.add("[Você se depara com uma coruja assustadora]");
+                falas.add("[BATALHA]");
+                falas.add("[Você ganhou +50 XP]");
+                falas.add("O que foi isso? Que bloco esquisito!");
+                break;
+        }
+
+        return falas;
     }
 
     public String getTextoAtual() {
 
-        switch(localAtual) {
+        List<String> falas = getDialogos();
 
-            case ENTRADA:
-
-                switch(dialogoAtual) {
-
-                    case 0:
-                        return "Pintas desapareceu.";
-
-                    case 1:
-                        return "Preciso investigar o IFMS.";
-
-                    case 2:
-                        return "Por onde devo começar?";
-
-                    default:
-                        return "";
-                }
-
-            case BLOCO_A:
-                return "Voce encontrou um Livro do Governo.";
-
-            case BLOCO_B:
-                return "A porta esta trancada.";
-
-            case BLOCO_C:
-                return "Um Quero-Quero bloqueia seu caminho.";
-
-            case BLOCO_D_TERREO:
-                return "Voce esta no terreo do Bloco D.";
-
-            case BLOCO_D_SEGUNDO_ANDAR:
-                return "Voce encontrou um extintor de incendio.";
-
-            case CANTINA:
-                return "Lo e Ja estao atendendo o caixa.";
-
-            case CAMINHO_BLOCO_E:
-                return "Uma coruja observa voce.";
-
-            case BLOCO_E:
-                return "O local parece abandonado.";
-
-            case BLOCO_F:
-                return "O Tio do Pastel sorri para voce.";
-
-            case QUADRA:
-                return "Ha varios objetos espalhados pela quadra.";
-
-            case FLORESTA_AMORAS:
-                return "Pintas esta presa!";
-
-            default:
-                return "";
+        if(dialogoAtual < falas.size()) {
+            return falas.get(dialogoAtual);
         }
+
+        return "Escolha para onde ir.";
     }
 
-    public String getOpcao1() {
-
-        switch(localAtual) {
-
-            case ENTRADA:
-
-                if(dialogoAtual < 2)
-                    return "Continuar";
-
-                return "Bloco A";
-
-            case BLOCO_B:
-                return "Voltar";
-
-            case BLOCO_D_TERREO:
-                return "Cantina";
-
-            case BLOCO_D_SEGUNDO_ANDAR:
-                return "Voltar";
-
-            case FLORESTA_AMORAS:
-                return "Falar com Pintas";
-
-            default:
-                return "Continuar";
-        }
+    public boolean terminouDialogo() {
+        return dialogoAtual >= getDialogos().size();
     }
 
-    public String getOpcao2() {
-
-        switch(localAtual) {
-
-            case ENTRADA:
-
-                if(dialogoAtual < 2)
-                    return "";
-
-                return "Bloco B";
-
-            case BLOCO_D_TERREO:
-                return "2 Andar";
-
-            default:
-                return "";
-        }
-    }
-
-    public void escolha1() {
-
-        switch(localAtual) {
-
-            case ENTRADA:
-
-                if(dialogoAtual < 2) {
-                    proximoDialogo();
-                } else {
-                    mudarLocal(Local.BLOCO_A);
-                }
-                break;
-
-            case BLOCO_B:
-                mudarLocal(Local.ENTRADA);
-                break;
-
-            case BLOCO_D_TERREO:
-                mudarLocal(Local.CANTINA);
-                break;
-
-            case BLOCO_D_SEGUNDO_ANDAR:
-                mudarLocal(Local.BLOCO_D_TERREO);
-                break;
-        }
-    }
-
-    public void escolha2() {
-
-        switch(localAtual) {
-
-            case ENTRADA:
-                if(dialogoAtual >= 2) {
-                    mudarLocal(Local.BLOCO_B);
-                }
-                break;
-
-            case BLOCO_D_TERREO:
-                mudarLocal(Local.BLOCO_D_SEGUNDO_ANDAR);
-                break;
-        }
+    public void proximoDialogo() {
+        dialogoAtual++;
     }
 }
 
