@@ -66,7 +66,7 @@ private void escolha1() {
             break;
 
         case BLOCO_A:
-            dialogo.mudarLocal(util.Local.BLOCO_D_TERREO);
+            dialogo.mudarLocal(util.Local.BLOCO_D_HALL);
             break;
     }
 
