@@ -55,19 +55,10 @@ private void escolha1() {
     if(!dialogo.terminouDialogo()) {
 
         dialogo.proximoDialogo();
-        atualizarTela();
-        return;
-    }
 
-    switch(dialogo.getLocalAtual()) {
+    } else {
 
-        case ENTRADA:
-            dialogo.mudarLocal(util.Local.BLOCO_A);
-            break;
-
-        case BLOCO_A:
-            dialogo.mudarLocal(util.Local.BLOCO_D_HALL);
-            break;
+        dialogo.escolha1();
     }
 
     atualizarTela();
@@ -76,22 +67,11 @@ private void escolha1() {
     @FXML
 private void escolha2() {
 
-    if(!dialogo.terminouDialogo()) {
-        return;
+    if(dialogo.terminouDialogo()) {
+
+        dialogo.escolha2();
+        atualizarTela();
     }
-
-    switch(dialogo.getLocalAtual()) {
-
-        case ENTRADA:
-            dialogo.mudarLocal(util.Local.BLOCO_B);
-            break;
-
-        case BLOCO_A:
-            dialogo.mudarLocal(util.Local.BLOCO_F);
-            break;
-    }
-
-    atualizarTela();
 }
 
     @FXML
