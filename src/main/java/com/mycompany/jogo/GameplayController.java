@@ -12,7 +12,6 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import util.sistemaDialogo;
 
-
 public class GameplayController {
 
     @FXML
@@ -50,61 +49,113 @@ public class GameplayController {
     }
 
     @FXML
-private void escolha1() {
+    private void escolha1() {
 
-    if(!dialogo.terminouDialogo()) {
+        if (!dialogo.terminouDialogo()) {
 
-        dialogo.proximoDialogo();
+            dialogo.proximoDialogo();
 
-    } else {
+        } else {
 
-        dialogo.escolha1();
-    }
+            dialogo.escolha1();
+        }
 
-    atualizarTela();
-}
-
-    @FXML
-private void escolha2() {
-
-    if(dialogo.terminouDialogo()) {
-
-        dialogo.escolha2();
         atualizarTela();
     }
-}
+
+    @FXML
+    private void escolha2() {
+
+        if (dialogo.terminouDialogo()) {
+
+            dialogo.escolha2();
+
+            atualizarTela();
+        }
+    }
 
     @FXML
     private void abrirInventario() {
 
+        // Implementar futuramente
     }
 
     private void atualizarTela() {
 
-    nomeLabel.setText(dialogo.getNomeAtual());
+        String nome = dialogo.getNomeAtual();
 
-    dialogoLabel.setText(dialogo.getTextoAtual());
+        if (nome == null || nome.isEmpty()) {
 
-    if(!dialogo.terminouDialogo()) {
-
-        botao1.setText("Continuar");
-        botao2.setVisible(false);
-
-    } else {
-
-        botao1.setText(dialogo.getOpcao1());
-
-        if(dialogo.getOpcao2().isEmpty()) {
-
-            botao2.setVisible(false);
+            nomeLabel.setVisible(false);
 
         } else {
 
-            botao2.setVisible(true);
-            botao2.setText(dialogo.getOpcao2());
+            nomeLabel.setVisible(true);
+            nomeLabel.setText(nome);
         }
-    }
-}
 
+        dialogoLabel.setText(dialogo.getTextoAtual());
+
+        if (!dialogo.terminouDialogo()) {
+
+            botao1.setText("Continuar");
+
+            botao2.setVisible(false);
+            botao2.setManaged(false);
+
+        } else {
+
+            botao1.setText(dialogo.getOpcao1());
+
+            String opcao2 = dialogo.getOpcao2();
+
+            if (opcao2 == null || opcao2.isEmpty()) {
+
+                botao2.setVisible(false);
+                botao2.setManaged(false);
+
+            } else {
+
+                botao2.setVisible(true);
+                botao2.setManaged(true);
+                botao2.setText(opcao2);
+            }
+        }
+
+        atualizarStatusJogador();
+
+        atualizarCenario();
+    }
+
+    private void atualizarStatusJogador() {
+
+        /*
+         PENDENTE:
+
+         vidaBar.setProgress(...);
+
+         xpBar.setProgress(...);
+
+         dinheiroLabel.setText(...);
+        */
+    }
+
+    private void atualizarCenario() {
+
+        /*
+         PENDENTE:
+
+         switch(dialogo.getLocalAtual()) {
+
+             case ENTRADA:
+                 carregarImagem("entrada.png");
+                 break;
+
+             case BLOCO_A:
+                 carregarImagem("bloco_a.png");
+                 break;
+         }
+        */
+    }
 }
 
