@@ -92,21 +92,16 @@ private void escolha2() {
 
     } else {
 
-        switch(dialogo.getLocalAtual()) {
+        botao1.setText(dialogo.getOpcao1());
 
-            case ENTRADA:
+        if(dialogo.getOpcao2().isEmpty()) {
 
-                botao1.setText("Bloco A");
-                botao2.setText("Bloco B");
-                botao2.setVisible(true);
-                break;
+            botao2.setVisible(false);
 
-            case BLOCO_A:
+        } else {
 
-                botao1.setText("Bloco D");
-                botao2.setText("Bloco F");
-                botao2.setVisible(true);
-                break;
+            botao2.setVisible(true);
+            botao2.setText(dialogo.getOpcao2());
         }
     }
 }
