@@ -17,7 +17,7 @@ public enum Local {
     BLOCO_E,
     BLOCO_F,
     QUADRA,
-    FLORESTA_AMORAS,
+    FLORESTA_AMORAS
     
 
 }

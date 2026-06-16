@@ -6,8 +6,9 @@
 package util;
 
 public class Fala {
-    private String personagem;
-    private String texto;
+
+    private final String personagem;
+    private final String texto;
 
     public Fala(String personagem, String texto) {
         this.personagem = personagem;
