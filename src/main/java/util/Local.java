@@ -10,6 +10,7 @@ public enum Local {
     BLOCO_A,
     BLOCO_B,
     BLOCO_C,
+    BLOCO_D_EXTERNO,
     BLOCO_D_HALL,
     BLOCO_D_SEGUNDO_ANDAR,
     CANTINA,

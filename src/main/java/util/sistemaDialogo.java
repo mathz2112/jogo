@@ -142,6 +142,15 @@ public class sistemaDialogo {
                 ));
 
                 break;
+            
+            case BLOCO_D_EXTERNO:
+                               
+                falas.add(new Fala(
+                        "Você",
+                        "Para onde eu devo ir?"
+                ));
+                
+                break;
 
             case BLOCO_D_HALL:
 
