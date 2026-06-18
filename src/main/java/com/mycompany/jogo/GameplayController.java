@@ -39,6 +39,7 @@ public class GameplayController {
     private Button botao2;
 
     private sistemaDialogo dialogo;
+ 
 
     @FXML
     public void initialize() {

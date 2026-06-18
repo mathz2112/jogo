@@ -14,12 +14,14 @@ public class sistemaDialogo {
     private Local localAtual;
     private int dialogoAtual;
     private boolean introducaoConcluida;
+    private int destinoSelecionado;
 
     public sistemaDialogo() {
-        localAtual = Local.ENTRADA;
-        dialogoAtual = 0;
-        introducaoConcluida = false;
-    }
+
+    localAtual = Local.ENTRADA;
+    dialogoAtual = 0;
+    destinoSelecionado = 0;
+}
 
     public void proximoDialogo() {
 
@@ -33,9 +35,11 @@ public class sistemaDialogo {
     }
 
     public void mudarLocal(Local local) {
-        localAtual = local;
-        dialogoAtual = 0;
-    }
+
+    localAtual = local;
+    dialogoAtual = 0;
+    destinoSelecionado = 0;
+}
 
     public Local getLocalAtual() {
         return localAtual;
@@ -46,8 +50,9 @@ public class sistemaDialogo {
     }
 
     public boolean terminouDialogo() {
-        return dialogoAtual >= getDialogos().size();
-    }
+
+    return dialogoAtual >= getDialogos().size();
+}
 
     public String getNomeAtual() {
 
@@ -66,6 +71,86 @@ public class sistemaDialogo {
 
         return getDialogos().get(dialogoAtual).getTexto();
     }
+    
+    private List<Local> getDestinosDisponiveis() {
+
+    List<Local> destinos = new ArrayList<>();
+
+    switch (localAtual) {
+
+        case ENTRADA:
+            destinos.add(Local.BLOCO_A);
+            destinos.add(Local.BLOCO_B);
+            break;
+
+        case BLOCO_A:
+            destinos.add(Local.BLOCO_B);
+            destinos.add(Local.BLOCO_D_EXTERNO);
+            destinos.add(Local.BLOCO_F);
+            break;
+
+        case BLOCO_B:
+            destinos.add(Local.BLOCO_A);
+            destinos.add(Local.BLOCO_C);
+            break;
+
+        case BLOCO_C:
+            destinos.add(Local.BLOCO_B);
+            destinos.add(Local.BLOCO_D_EXTERNO);
+            destinos.add(Local.CAMINHO_BLOCO_E);
+            break;
+
+        case BLOCO_D_EXTERNO:
+            destinos.add(Local.BLOCO_A);
+            destinos.add(Local.BLOCO_C);
+            destinos.add(Local.BLOCO_F);
+            destinos.add(Local.CAMINHO_BLOCO_E);
+            destinos.add(Local.BLOCO_D_HALL);
+            break;
+
+        case BLOCO_D_HALL:
+            destinos.add(Local.BLOCO_D_EXTERNO);
+            destinos.add(Local.CANTINA);
+            destinos.add(Local.BLOCO_D_SEGUNDO_ANDAR);
+            break;
+
+        case CANTINA:
+            destinos.add(Local.BLOCO_D_HALL);
+            break;
+
+        case BLOCO_D_SEGUNDO_ANDAR:
+            destinos.add(Local.BLOCO_D_HALL);
+            break;
+
+        case BLOCO_F:
+            destinos.add(Local.BLOCO_A);
+            destinos.add(Local.BLOCO_D_EXTERNO);
+            destinos.add(Local.QUADRA);
+            break;
+
+        case QUADRA:
+            destinos.add(Local.BLOCO_F);
+            destinos.add(Local.CAMINHO_BLOCO_E);
+            break;
+
+        case CAMINHO_BLOCO_E:
+            destinos.add(Local.BLOCO_C);
+            destinos.add(Local.BLOCO_D_EXTERNO);
+            destinos.add(Local.QUADRA);
+            destinos.add(Local.BLOCO_E);
+            break;
+
+        case BLOCO_E:
+            destinos.add(Local.CAMINHO_BLOCO_E);
+            destinos.add(Local.FLORESTA_AMORAS);
+            break;
+
+        case FLORESTA_AMORAS:
+            break;
+    }
+
+    return destinos;
+}
 
     private List<Fala> getDialogos() {
 
@@ -348,72 +433,53 @@ public class sistemaDialogo {
         return falas;
     }
 
-    public String getOpcao1() {
+   public String getOpcao1() {
 
-        switch(localAtual) {
+    List<Local> destinos = getDestinosDisponiveis();
 
-            case ENTRADA:
-                return "Ir para Bloco A";
-
-            case BLOCO_A:
-            case BLOCO_B:
-                return "Voltar";
-
-            case BLOCO_D_HALL:
-                return "Ir para Cantina";
-
-            default:
-                return "";
-        }
+    if (destinos.isEmpty()) {
+        return "";
     }
+
+    return "Ir para " +
+            destinos.get(destinoSelecionado)
+                    .name()
+                    .replace("_", " ");
+}
 
     public String getOpcao2() {
 
-        switch(localAtual) {
-
-            case ENTRADA:
-                return "Ir para Bloco B";
-
-            case BLOCO_D_HALL:
-                return "Ir para 2º Andar";
-
-            default:
-                return "";
-        }
+    if (getDestinosDisponiveis().size() <= 1) {
+        return "";
     }
+
+    return "Próximo";
+}
 
     public void escolha1() {
 
-        switch(localAtual) {
+    List<Local> destinos = getDestinosDisponiveis();
 
-            case ENTRADA:
-                mudarLocal(Local.BLOCO_A);
-                break;
+    if (!destinos.isEmpty()) {
 
-            case BLOCO_A:
-            case BLOCO_B:
-                mudarLocal(Local.ENTRADA);
-                break;
-
-            case BLOCO_D_HALL:
-                mudarLocal(Local.CANTINA);
-                break;
-        }
+        mudarLocal(destinos.get(destinoSelecionado));
     }
+}
 
     public void escolha2() {
 
-        switch(localAtual) {
+    List<Local> destinos = getDestinosDisponiveis();
 
-            case ENTRADA:
-                mudarLocal(Local.BLOCO_B);
-                break;
-
-            case BLOCO_D_HALL:
-                mudarLocal(Local.BLOCO_D_SEGUNDO_ANDAR);
-                break;
-        }
+    if (destinos.size() <= 1) {
+        return;
     }
+
+    destinoSelecionado++;
+
+    if (destinoSelecionado >= destinos.size()) {
+        destinoSelecionado = 0;
+    }
+}
 }
 
     
