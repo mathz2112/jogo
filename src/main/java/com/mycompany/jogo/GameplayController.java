@@ -97,9 +97,9 @@ private void criarBotaoContinuar() {
     escolhasBox.getChildren().add(continuar);
 }
 
-private void criarBotoesDestino() {
+    private void criarBotoesDestino() {
 
-    List<Local> destinos = dialogo.getDestinos();
+   List<Local> destinos = dialogo.getDestinos();
 
     for (Local destino : destinos) {
 

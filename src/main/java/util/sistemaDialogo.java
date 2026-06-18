@@ -9,21 +9,21 @@ package util;
 import java.util.ArrayList;
 import java.util.List;
 
-public class sistemaDialogo {
+public class sistemaDialogo { //aaaaaaaaaa
 
     private Local localAtual;
     private int dialogoAtual;
     private boolean introducaoConcluida;
-    private int destinoSelecionado;
+    
 
     public sistemaDialogo() {
 
-    localAtual = Local.ENTRADA;
-    dialogoAtual = 0;
-    destinoSelecionado = 0;
-}
+        localAtual = Local.ENTRADA;
+        dialogoAtual = 0;
+        introducaoConcluida = false;
+    }
 
-    public void proximoDialogo() {
+    public void proximoDialogo() { //vai pro próximo dialogo
 
         dialogoAtual++;
 
@@ -34,11 +34,11 @@ public class sistemaDialogo {
         }
     }
 
-    public void mudarLocal(Local local) {
+    public void mudarLocal(Local local) { //mudar de local né
 
     localAtual = local;
     dialogoAtual = 0;
-    destinoSelecionado = 0;
+   
 }
 
     public Local getLocalAtual() {
@@ -49,7 +49,7 @@ public class sistemaDialogo {
         return dialogoAtual;
     }
 
-    public boolean terminouDialogo() {
+    public boolean terminouDialogo() { //vê se o dialogo terminou
 
     return dialogoAtual >= getDialogos().size();
 }
@@ -66,13 +66,13 @@ public class sistemaDialogo {
     public String getTextoAtual() {
 
         if(terminouDialogo()) {
-            return "Escolha para onde deseja ir.";
+            return "Para onde eu vou?";
         }
 
         return getDialogos().get(dialogoAtual).getTexto();
     }
     
-    private List<Local> getDestinosDisponiveis() {
+    private List<Local> getDestinosDisponiveis() { //caminhos disponíveis em cada espaço
 
     List<Local> destinos = new ArrayList<>();
 
@@ -109,10 +109,11 @@ public class sistemaDialogo {
             break;
 
         case BLOCO_D_HALL:
-            destinos.add(Local.BLOCO_D_EXTERNO);
-            destinos.add(Local.CANTINA);
-            destinos.add(Local.BLOCO_D_SEGUNDO_ANDAR);
-            break;
+
+        destinos.add(Local.BLOCO_D_EXTERNO);
+        destinos.add(Local.CANTINA);
+        destinos.add(Local.BLOCO_D_SEGUNDO_ANDAR);
+        break;
 
         case CANTINA:
             destinos.add(Local.BLOCO_D_HALL);
@@ -152,7 +153,7 @@ public class sistemaDialogo {
     return destinos;
 }
 
-    private List<Fala> getDialogos() {
+    private List<Fala> getDialogos() { //diálogos do jogo
 
         List<Fala> falas = new ArrayList<>();
 
@@ -433,9 +434,10 @@ public class sistemaDialogo {
         return falas;
     }
 
-   public List<Local> getDestinos() {
+   public List<Local> getDestinos() { 
 
     return getDestinosDisponiveis();
+    
 }
 }
 

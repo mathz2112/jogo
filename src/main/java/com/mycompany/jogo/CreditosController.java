@@ -9,5 +9,5 @@ package com.mycompany.jogo;
  * @author aluno
  */
 public class CreditosController {
-    
+    //INCLUIR UMA IMAGEM - MAIS FACIL
 }
