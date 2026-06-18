@@ -433,52 +433,9 @@ public class sistemaDialogo {
         return falas;
     }
 
-   public String getOpcao1() {
+   public List<Local> getDestinos() {
 
-    List<Local> destinos = getDestinosDisponiveis();
-
-    if (destinos.isEmpty()) {
-        return "";
-    }
-
-    return "Ir para " +
-            destinos.get(destinoSelecionado)
-                    .name()
-                    .replace("_", " ");
-}
-
-    public String getOpcao2() {
-
-    if (getDestinosDisponiveis().size() <= 1) {
-        return "";
-    }
-
-    return "Próximo";
-}
-
-    public void escolha1() {
-
-    List<Local> destinos = getDestinosDisponiveis();
-
-    if (!destinos.isEmpty()) {
-
-        mudarLocal(destinos.get(destinoSelecionado));
-    }
-}
-
-    public void escolha2() {
-
-    List<Local> destinos = getDestinosDisponiveis();
-
-    if (destinos.size() <= 1) {
-        return;
-    }
-
-    destinoSelecionado++;
-
-    if (destinoSelecionado >= destinos.size()) {
-        destinoSelecionado = 0;
-    }
+    return getDestinosDisponiveis();
 }
 }
 

@@ -5,45 +5,82 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.jogo.GameplayController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0"
+            xmlns="http://javafx.com/javafx/26"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mycompany.jogo.GameplayController">
 
     <children>
 
-        <!-- Imagem do cenário -->
-        <ImageView fx:id="cenarioImage" fitHeight="1080.0" fitWidth="1920.0" />
+        <!-- Cenário -->
+        <ImageView fx:id="cenarioImage"
+                   fitHeight="1080.0"
+                   fitWidth="1920.0" />
 
-        <!-- Status do jogador -->
-        <ProgressBar fx:id="vidaBar" layoutX="10" layoutY="10" prefWidth="200" />
+        <!-- Status -->
+        <ProgressBar fx:id="vidaBar"
+                     layoutX="10"
+                     layoutY="10"
+                     prefWidth="200" />
 
-        <ProgressBar layoutX="10" layoutY="40" prefWidth="200" fx:id="xpBar" />
+        <ProgressBar fx:id="xpBar"
+                     layoutX="10"
+                     layoutY="40"
+                     prefWidth="200" />
 
-        <Label fx:id="dinheiroLabel" layoutX="260" layoutY="20" prefWidth="52.0" text="R$ 0">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
+        <Label fx:id="dinheiroLabel"
+               layoutX="260"
+               layoutY="20"
+               text="R$ 0">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
 
-        <Button fx:id="inventarioButton" layoutX="1683.0" layoutY="33.0" onAction="#abrirInventario" prefHeight="61.0" prefWidth="156.0" text="Inventário">
-         <font>
-            <Font size="15.0" />
-         </font></Button>
+        <Button fx:id="inventarioButton"
+                layoutX="1683.0"
+                layoutY="33.0"
+                prefHeight="61.0"
+                prefWidth="156.0"
+                text="Inventário"
+                onAction="#abrirInventario">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Button>
 
-        <!-- Caixa de diálogo -->
-        <Label fx:id="nomeLabel" layoutX="986.0" layoutY="469.0" prefHeight="31.0" prefWidth="59.0" text="Você">
-         <font>
-            <Font size="21.0" />
-         </font></Label>
+        <!-- Nome -->
+       <Label fx:id="nomeLabel"
+            layoutX="20"
+            layoutY="300"
+            text="Você">
+            <font>
+                <Font size="22.0" />
+            </font>
+        </Label>
 
-        <Label fx:id="dialogoLabel" layoutX="813.0" layoutY="787.0" prefHeight="152.0" prefWidth="495.0" text="Texto do diálogo" wrapText="true">
-         <font>
-            <Font size="20.0" />
-         </font></Label>
+        <!-- Diálogo -->
+        <Label fx:id="dialogoLabel"
+            layoutX="20"
+            layoutY="330"
+            prefWidth="600"
+            prefHeight="80"
+            wrapText="true"
+            text="Texto">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
 
-        <!-- Escolhas -->
-        <Button fx:id="botao1" layoutX="1141.0" layoutY="967.0" onAction="#escolha1" prefHeight="26.0" prefWidth="170.0" text="Escolha 1" />
-
-        <Button fx:id="botao2" layoutX="811.0" layoutY="961.0" onAction="#escolha2" prefHeight="26.0" prefWidth="170.0" text="Escolha 2" />
+        <!-- Área de escolhas -->
+        <VBox fx:id="escolhasBox"
+            layoutX="20"
+            layoutY="420"
+            prefWidth="300"
+            spacing="10"/>
 
     </children>
 
