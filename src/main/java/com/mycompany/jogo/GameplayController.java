@@ -7,187 +7,475 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import model.Chefe;
+import model.Estudante;
+import model.Inimigo;
 import util.Local;
 import util.sistemaDialogo;
+import model.Arma;
+import model.Comida;
+import util.tipoArma;
+import util.tipoItem;
 
 public class GameplayController {
 
-@FXML
-private ProgressBar vidaBar;
+    private sistemaDialogo dialogo;
 
-@FXML
-private ProgressBar xpBar;
+    private Estudante jogador;
 
-@FXML
-private Button inventarioButton;
+    private Inimigo queroQuero;
 
-@FXML
-private ImageView cenarioImage;
+    private Inimigo coruja;
 
-@FXML
-private VBox escolhasBox;
+    private Chefe capi;
+    
+    private Inimigo inimigoAtual;
 
-@FXML
-private Label nomeLabel;
+    private boolean emBatalha = false;
 
-@FXML
-private Label dialogoLabel;
+    @FXML
+    private ProgressBar vidaBar;
 
-private sistemaDialogo dialogo;
+    @FXML
+    private ProgressBar xpBar;
 
-@FXML
-public void initialize() {
+    @FXML
+    private Button inventarioButton;
 
-    dialogo = new sistemaDialogo();
+    @FXML
+    private ImageView cenarioImage;
 
-    atualizarTela();
+    @FXML
+    private VBox escolhasBox;
+
+    @FXML
+    private Label nomeLabel;
+
+    @FXML
+    private Label dialogoLabel;
+
+    @FXML
+    private Label dinheiroLabel;
+
+    @FXML
+    public void initialize() {
+
+        dialogo = new sistemaDialogo();
+
+        jogador = new Estudante();
+
+        jogador.setVida(100);
+        jogador.setDano(10);
+        jogador.setDinheiro(50);
+        jogador.setXp(0);
+
+        queroQuero = new Inimigo(
+                "Quero-Quero",
+                30,
+                5,
+                50
+        );
+
+        coruja = new Inimigo(
+                "Coruja",
+                50,
+                10,
+                50
+        );
+
+        capi = new Chefe(
+                "Inveja da Pintas",
+                "Capi",
+                100,
+                20,
+                100
+        );
+
+        atualizarTela();
+    }
+
+    @FXML
+    private void abrirInventario() {
+
+        // Implementar depois
+
+    }
+
+    private void atualizarTela() {
+
+        String nome = dialogo.getNomeAtual();
+
+        if (nome == null || nome.isEmpty()) {
+
+            nomeLabel.setVisible(false);
+
+        } else {
+
+            nomeLabel.setVisible(true);
+            nomeLabel.setText(nome);
+
+        }
+
+        dialogoLabel.setText(dialogo.getTextoAtual());
+
+        escolhasBox.getChildren().clear();
+
+        if (!dialogo.terminouDialogo()) {
+
+            criarBotaoContinuar();
+
+        } else {
+
+            criarBotoesDestino();
+
+        }
+        
+        verificarItens();
+        
+        atualizarStatusJogador();
+
+        atualizarCenario();
+
+    }
+    
+    
+    private void verificarItens() {
+
+    switch (dialogo.getLocalAtual()) {
+
+        case BLOCO_A:
+
+            if (!jogador.possuiItem("Livro do Governo")) {
+
+                Arma livro = new Arma(
+                        tipoArma.LIVRO_GOVERNO,
+                        5,
+                        "Livro do Governo",
+                        tipoItem.ARMA,
+                        "Aumenta o dano em +5"
+                );
+
+                jogador.adicionarItem(livro);
+
+                jogador.setDano(
+                        jogador.getDano() + 5
+                );
+            }
+
+            break;
+
+        case BLOCO_D_SEGUNDO_ANDAR:
+
+            if (!jogador.possuiItem("Extintor")) {
+
+                Arma extintor = new Arma(
+                        tipoArma.EXTINTOR,
+                        10,
+                        "Extintor",
+                        tipoItem.ARMA,
+                        "Aumenta o dano em +10"
+                );
+
+                jogador.adicionarItem(extintor);
+
+                jogador.setDano(
+                        jogador.getDano() + 10
+                );
+            }
+
+            break;
+
+        case QUADRA:
+
+            if (!jogador.possuiItem("Corda")) {
+
+                Arma corda = new Arma(
+                        tipoArma.CORDA,
+                        15,
+                        "Corda",
+                        tipoItem.ARMA,
+                        "Aumenta o dano em +15"
+                );
+
+                jogador.adicionarItem(corda);
+
+                jogador.setDano(
+                        jogador.getDano() + 15
+                );
+            }
+
+            break;
+
+    }
+
 }
+    
+    
 
-@FXML
-private void abrirInventario() {
+    private void criarBotaoContinuar() {
 
-    // Implementar futuramente
-}
+        Button continuar = new Button("Continuar");
 
-private void atualizarTela() {
+        continuar.setPrefWidth(300);
 
-    String nome = dialogo.getNomeAtual();
+        continuar.setOnAction(event -> {
 
-    if (nome == null || nome.isEmpty()) {
+            String textoAtual = dialogo.getTextoAtual();
 
-        nomeLabel.setVisible(false);
+            if (textoAtual.equals("[INICIAR BATALHA]")) {
+
+                iniciarBatalha();
+
+                return;
+
+            }
+
+            if (textoAtual.equals("[BATALHA FINAL]")) {
+
+                iniciarBatalhaFinal();
+
+                return;
+
+            }
+
+            if (textoAtual.equals("[FIM DE JOGO]")) {
+
+                fimDoJogo();
+
+                return;
+
+            }
+
+            dialogo.proximoDialogo();
+
+            atualizarTela();
+
+        });
+
+        escolhasBox.getChildren().add(continuar);
+
+    }
+
+    private void criarBotoesDestino() {
+
+        List<Local> destinos = dialogo.getDestinos();
+
+        for (Local destino : destinos) {
+
+            Button botao = new Button(formatarNome(destino));
+
+            botao.setPrefWidth(300);
+
+            botao.setOnAction(event -> {
+
+                dialogo.mudarLocal(destino);
+
+                atualizarTela();
+
+            });
+
+            escolhasBox.getChildren().add(botao);
+
+        }
+
+    }
+
+    private String formatarNome(Local local) {
+
+        switch (local) {
+
+            case BLOCO_A:
+                return "Bloco A";
+
+            case BLOCO_B:
+                return "Bloco B";
+
+            case BLOCO_C:
+                return "Bloco C";
+
+            case BLOCO_D_EXTERNO:
+                return "Bloco D";
+
+            case BLOCO_D_HALL:
+                return "Entrar no Bloco D";
+
+            case BLOCO_D_SEGUNDO_ANDAR:
+                return "2º Andar";
+
+            case CANTINA:
+                return "Cantina";
+
+            case CAMINHO_BLOCO_E:
+                return "Caminho para o Bloco E";
+
+            case BLOCO_E:
+                return "Bloco E";
+
+            case BLOCO_F:
+                return "Bloco F";
+
+            case QUADRA:
+                return "Quadra";
+
+            case FLORESTA_AMORAS:
+                return "Bosque das Amoras";
+
+            default:
+                return local.name();
+
+        }
+
+    }
+
+    private void atualizarStatusJogador() {
+
+        vidaBar.setProgress(jogador.getVida() / 100.0);
+
+        xpBar.setProgress(jogador.getXp() / 200.0);
+
+        dinheiroLabel.setText("R$ " + jogador.getDinheiro());
+
+    }
+
+    private void atualizarCenario() {
+
+        // Implementaremos depois
+
+    }
+
+        private void iniciarBatalha() {
+
+    emBatalha = true;
+
+    if (dialogo.getLocalAtual() == Local.BLOCO_C) {
+
+        inimigoAtual = queroQuero;
 
     } else {
 
-        nomeLabel.setVisible(true);
-        nomeLabel.setText(nome);
+        inimigoAtual = coruja;
+
     }
 
-    dialogoLabel.setText(dialogo.getTextoAtual());
+    mostrarTelaBatalha();
+}
+
+private void mostrarTelaBatalha() {
+
+    nomeLabel.setVisible(true);
+    nomeLabel.setText(inimigoAtual.getNome());
+
+    dialogoLabel.setText(
+            "Vida do inimigo: " + inimigoAtual.getVida()
+    );
 
     escolhasBox.getChildren().clear();
 
-    if (!dialogo.terminouDialogo()) {
+    Button atacar = new Button("Atacar");
 
-        criarBotaoContinuar();
+    atacar.setPrefWidth(300);
 
-    } else {
+    atacar.setOnAction(event -> atacarInimigo());
 
-        criarBotoesDestino();
-    }
+    escolhasBox.getChildren().add(atacar);
 
-    atualizarStatusJogador();
-
-    atualizarCenario();
 }
 
-private void criarBotaoContinuar() {
+private void atacarInimigo() {
 
-    Button continuar = new Button("Continuar");
+    // Jogador ataca
+    inimigoAtual.setVida(
+            inimigoAtual.getVida() - jogador.getDano()
+    );
 
-    continuar.setPrefWidth(300);
+    // Inimigo derrotado
+    if (inimigoAtual.getVida() <= 0) {
 
-    continuar.setOnAction(event -> {
+        jogador.setXp(
+                jogador.getXp() + inimigoAtual.getXpConcedido()
+        );
+
+        emBatalha = false;
 
         dialogo.proximoDialogo();
 
         atualizarTela();
-    });
 
-    escolhasBox.getChildren().add(continuar);
-}
+        return;
+    }
 
-    private void criarBotoesDestino() {
+    // Inimigo ataca
+    jogador.setVida(
+            Math.max(
+                    jogador.getVida() - inimigoAtual.getDano(),
+                    0
+            )
+    );
 
-   List<Local> destinos = dialogo.getDestinos();
+    atualizarStatusJogador();
 
-    for (Local destino : destinos) {
+    // Jogador morreu
+    if (jogador.getVida() <= 0) {
 
-        Button botao = new Button(formatarNome(destino));
+        nomeLabel.setText("DERROTA");
 
-        botao.setPrefWidth(300);
+        dialogoLabel.setText(
+                "Você foi derrotado."
+        );
 
-        botao.setOnAction(event -> {
+        escolhasBox.getChildren().clear();
 
-            dialogo.mudarLocal(destino);
+        Button reiniciar = new Button("Reiniciar");
+
+        reiniciar.setPrefWidth(300);
+
+        reiniciar.setOnAction(event -> {
+
+            jogador.setVida(100);
+            jogador.setXp(0);
+            jogador.setDinheiro(50);
+
+            dialogo = new sistemaDialogo();
 
             atualizarTela();
+
         });
 
-        escolhasBox.getChildren().add(botao);
+        escolhasBox.getChildren().add(reiniciar);
+
+        return;
     }
+
+    mostrarTelaBatalha();
+
 }
 
-private String formatarNome(Local local) {
+private void iniciarBatalhaFinal() {
 
-    switch (local) {
+    emBatalha = true;
 
-        case BLOCO_A:
-            return "Bloco A";
+    inimigoAtual = capi;
 
-        case BLOCO_B:
-            return "Bloco B";
+    mostrarTelaBatalha();
 
-        case BLOCO_C:
-            return "Bloco C";
-
-        case BLOCO_D_EXTERNO:
-            return "Bloco D";
-
-        case BLOCO_D_HALL:
-            return "Entrar no Bloco D";
-
-        case BLOCO_D_SEGUNDO_ANDAR:
-            return "2º Andar";
-
-        case CANTINA:
-            return "Cantina";
-
-        case CAMINHO_BLOCO_E:
-            return "Caminho para E";
-
-        case BLOCO_E:
-            return "Bloco E";
-
-        case BLOCO_F:
-            return "Bloco F";
-
-        case QUADRA:
-            return "Quadra";
-
-        case FLORESTA_AMORAS:
-            return "Bosque das Amoras";
-
-        default:
-            return local.name();
-    }
 }
 
-private void atualizarStatusJogador() {
+private void fimDoJogo() {
 
-    /*
-    PENDENTE:
+    nomeLabel.setText("Fim");
 
-    vidaBar.setProgress(...);
+    dialogoLabel.setText(
+            "Parabéns! Você resgatou a Pintas."
+    );
 
-    xpBar.setProgress(...);
+    escolhasBox.getChildren().clear();
 
-    dinheiroLabel.setText(...);
-    */
-}
+    Button voltarMenu = new Button("Voltar ao menu");
 
-private void atualizarCenario() {
+    voltarMenu.setPrefWidth(300);
 
-    /*
-    PENDENTE:
+    escolhasBox.getChildren().add(voltarMenu);
 
-    switch(dialogo.getLocalAtual()) {
-
-        case BLOCO_A:
-            carregarImagem(...);
-            break;
-    }
-    */
 }
 
 }

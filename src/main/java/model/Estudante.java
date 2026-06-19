@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package model;
 
+package model;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +10,7 @@ public class Estudante {
     private int id;
     private int vida; //inicia 100
     private int dano; // inicial 10
-    private int dinheiro; //inicial 0
+    private int dinheiro; //inicjava ial 0
     private int xp; //inicial 0
     private List<Item> inventario;
 
@@ -74,10 +71,46 @@ public class Estudante {
         this.inventario = inventario;
     }
 
-    public Estudante() { //TESTE
+   public Estudante() {
+
+    vida = 100;
+    dano = 10;
+    dinheiro = 50;
+    xp = 0;
+
+    inventario = new ArrayList<>();
+
+        }
+    
+      public void adicionarItem(Item item){
+
+    inventario.add(item);
+
     }
-    
-    
-    
-    
-}
+
+        public void removerItem(Item item){
+
+    inventario.remove(item);
+
+    }
+
+   public boolean possuiItem(String nome){
+
+    for(Item item : inventario){
+
+        if(item.getNome().equalsIgnoreCase(nome)){
+
+            return true;
+
+        }
+
+    }
+
+    return false;
+
+    }
+
+    }
+
+
+

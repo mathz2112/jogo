@@ -18,9 +18,18 @@ public class App extends Application {
  @Override
 public void start(Stage stage) throws IOException {
 
-    scene = new Scene(loadFXML("menu"), 1920, 1080);
+    scene = new Scene(loadFXML("menu"));
 
     stage.setTitle("Beyond the Hallways");
+    stage.setScene(scene);
+
+    stage.setResizable(true);
+
+    stage.show();
+    
+    /*
+    scene = new Scene(loadFXML("menu"), 1920, 1080);
+        stage.setTitle("Beyond the Hallways");
 
     stage.setScene(scene);
 
@@ -29,7 +38,8 @@ public void start(Stage stage) throws IOException {
 
     stage.setResizable(false);
 
-    stage.show();
+    stage.show(); */
+    
 }
 
     static void setRoot(String fxml) throws IOException {
