@@ -15,9 +15,25 @@
         text="Jogar"
         onAction="#jogar"/>
       
-      <Button fx:id="ranking" text="Ranking" onAction="#ranking"/>
-      <Button fx:id="creditos" text="Creditos" onAction="#creditos"/>
-      <Button fx:id="encerrar" text="Encerrar" onAction="#encerrar"/>
+      <Button fx:id="ranking" layoutX="50"
+        layoutY="620"
+        alignment="CENTER_RIGHT" 
+        text="Ranking" 
+        onAction="#ranking"/>
+      
+      
+      <Button fx:id="creditos" layoutX="50"
+        layoutY="620"
+        alignment="CENTER_RIGHT" 
+        text="Creditos" 
+        onAction="#creditos"/>
+      
+      
+      <Button fx:id="encerrar" layoutX="50"
+        layoutY="620"
+        alignment="CENTER_RIGHT" 
+        text="Encerrar" 
+        onAction="#encerrar"/>
       
       
       
