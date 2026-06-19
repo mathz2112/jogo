@@ -6,16 +6,13 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.Estudante;
 
-/**
- *
- * @author aluno
- */
 public class EstudanteDAO {
-    
-    public void estudanteDAO(Estudante estudante) {
+
+    public int estudanteDAO(Estudante estudante) {
 
         String sql = "INSERT INTO estudante(vida,dano,dinheiro,xp) VALUES (?,?,?,?)";
 
@@ -23,8 +20,11 @@ public class EstudanteDAO {
 
             Connection conn = ConnectionFactory.getConnection();
 
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            
+            PreparedStatement stmt = conn.prepareStatement(
+                    sql,
+                    PreparedStatement.RETURN_GENERATED_KEYS
+            );
+
             stmt.setInt(1, estudante.getVida());
             stmt.setInt(2, estudante.getDano());
             stmt.setInt(3, estudante.getDinheiro());
@@ -32,7 +32,22 @@ public class EstudanteDAO {
 
             stmt.executeUpdate();
 
-            System.out.println("Estudante salvo com sucesso!");
+            ResultSet rs = stmt.getGeneratedKeys();
+
+            if (rs.next()) {
+
+                int id = rs.getInt(1);
+
+                estudante.setId(id);
+
+                System.out.println("Estudante salvo com sucesso!");
+
+                rs.close();
+                stmt.close();
+                conn.close();
+
+                return id;
+            }
 
             stmt.close();
             conn.close();
@@ -41,5 +56,7 @@ public class EstudanteDAO {
 
             System.out.println(e);
         }
+
+        return -1;
     }
 }

@@ -408,7 +408,8 @@ private void atacarInimigo() {
 
             Partida partida = new Partida();
 
-            partida.setEstudanteId(1);
+            int idEstudante = estudanteDAO.estudanteDAO(jogador);
+            partida.setEstudanteId(idEstudante);
             partida.setPontuacao(jogador.getXp());
             partida.setInimigosDerrotados(3);
             partida.setChefeDerrotado(true);
@@ -442,7 +443,8 @@ private void atacarInimigo() {
 
         Partida partida = new Partida();
 
-        partida.setEstudanteId(1);
+        int idEstudante = estudanteDAO.estudanteDAO(jogador);
+        partida.setEstudanteId(idEstudante);
         partida.setPontuacao(jogador.getXp());
         partida.setInimigosDerrotados(0);
         partida.setChefeDerrotado(false);
