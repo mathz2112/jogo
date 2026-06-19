@@ -23,7 +23,7 @@ public class CriarPartida {
    public void create(Partida partida){
        
        String sql = "INSERT INTO partida "
-               + "(data,estudante_id,pontuacao,inimigos_derrotados,chefe_derrotado) VALUES (?,?,?,?,?,?)";
+               + "(data,estudante_id,pontuacao,inimigos_derrotados,chefe_derrotado) VALUES (?,?,?,?,?)";
        
        ConnectionFactory conn = new ConnectionFactory();
        

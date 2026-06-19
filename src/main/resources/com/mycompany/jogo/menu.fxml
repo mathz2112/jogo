@@ -18,7 +18,6 @@
       <Button fx:id="ranking" text="Ranking" onAction="#ranking"/>
       <Button fx:id="creditos" text="Creditos" onAction="#creditos"/>
       <Button fx:id="encerrar" text="Encerrar" onAction="#encerrar"/>
-      <Button fx:id="teste" text="aaaaa" onAction="#teste"/> 
       
       
       

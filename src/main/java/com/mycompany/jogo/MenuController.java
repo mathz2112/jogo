@@ -31,11 +31,5 @@ public class MenuController {
     private void encerrar() throws IOException {
     }
     
-    @FXML 
-    private void teste() throws IOException {
-         Partida partida = new Partida(0,null,0,0,0,true);
-        CriarPartida teste = new CriarPartida();
-        teste.create(partida);
-    }  
     
 }

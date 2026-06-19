@@ -1,5 +1,7 @@
 package com.mycompany.jogo;
 
+import dao.CriarPartida;
+import dao.EstudanteDAO;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,6 +16,7 @@ import util.Local;
 import util.sistemaDialogo;
 import model.Arma;
 import model.Comida;
+import model.Partida;
 import util.tipoArma;
 import util.tipoItem;
 
@@ -397,6 +400,23 @@ private void atacarInimigo() {
 
         emBatalha = false;
 
+        // Vitória final contra o Capi
+        if (inimigoAtual == capi) {
+
+            EstudanteDAO estudanteDAO = new EstudanteDAO();
+            estudanteDAO.estudanteDAO(jogador);
+
+            Partida partida = new Partida();
+
+            partida.setEstudanteId(1);
+            partida.setPontuacao(jogador.getXp());
+            partida.setInimigosDerrotados(3);
+            partida.setChefeDerrotado(true);
+
+            CriarPartida criarPartida = new CriarPartida();
+            criarPartida.create(partida);
+        }
+
         dialogo.proximoDialogo();
 
         atualizarTela();
@@ -416,6 +436,19 @@ private void atacarInimigo() {
 
     // Jogador morreu
     if (jogador.getVida() <= 0) {
+
+        EstudanteDAO estudanteDAO = new EstudanteDAO();
+        estudanteDAO.estudanteDAO(jogador);
+
+        Partida partida = new Partida();
+
+        partida.setEstudanteId(1);
+        partida.setPontuacao(jogador.getXp());
+        partida.setInimigosDerrotados(0);
+        partida.setChefeDerrotado(false);
+
+        CriarPartida criarPartida = new CriarPartida();
+        criarPartida.create(partida);
 
         nomeLabel.setText("DERROTA");
 
