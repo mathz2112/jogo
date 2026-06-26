@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane prefWidth="980.0" prefHeight="680.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GameplayController" style="-fx-background-color: #1e1e1e;">
+
+    <!-- 1. Cenário de Fundo (Preenche a tela inteira) -->
+    <ImageView fx:id="imgBackground" fitWidth="980.0" fitHeight="680.0" preserveRatio="false" layoutX="0.0" layoutY="0.0" />
+
+    <!-- 2. Sprite do Personagem/Inimigo (Sobreposto no centro) -->
+    <ImageView fx:id="imgSprite" fitWidth="260.0" fitHeight="420.0" layoutX="360.0" layoutY="70.0" preserveRatio="true" />
+
+    <!-- Mensagem de Derrota centralizada -->
+    <Label fx:id="lblDerrota" text="DERROTA" visible="false" managed="false" layoutX="0.0" layoutY="250.0" prefWidth="980.0" alignment="CENTER" style="-fx-text-fill: red; -fx-font-size: 64px; -fx-font-weight: bold;" />
+
+    <!-- 3. Cabeçalho (HUD do jogador no topo, sobreposto com fundo translúcido) -->
+    <HBox layoutX="0.0" layoutY="0.0" prefWidth="980.0" alignment="CENTER_LEFT" spacing="25.0" style="-fx-background-color: rgba(30, 30, 30, 0.8); -fx-padding: 10 15; -fx-border-color: #444444; -fx-border-width: 0 0 1 0;">
+        <VBox spacing="2.0">
+            <Label fx:id="lblJogadorNome" text="Estudante" style="-fx-text-fill: #88ff88; -fx-font-size: 14px; -fx-font-weight: bold;" />
+        </VBox>
+        
+        <VBox spacing="2.0">
+            <Label text="VIDA (HP)" style="-fx-text-fill: #88ff88; -fx-font-size: 9px; -fx-font-weight: bold;" />
+            <Label fx:id="lblVidaVal" text="100/100" style="-fx-text-fill: #88ff88; -fx-font-size: 13px; -fx-font-weight: bold;" />
+        </VBox>
+
+        <VBox spacing="2.0">
+            <Label text="XP" style="-fx-text-fill: #88ff88; -fx-font-size: 9px; -fx-font-weight: bold;" />
+            <Label fx:id="lblXpVal" text="0/100" style="-fx-text-fill: #88ff88; -fx-font-size: 13px; -fx-font-weight: bold;" />
+        </VBox>
+
+        <VBox spacing="2.0">
+            <Label text="CARTEIRA" style="-fx-text-fill: #88ff88; -fx-font-size: 9px; -fx-font-weight: bold;" />
+            <Label fx:id="lblDinheiro" text="R$ 0,00" style="-fx-text-fill: #88ff88; -fx-font-size: 13px; -fx-font-weight: bold;" />
+        </VBox>
+
+        <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+            <Label text="ARMA EQUIPADA" style="-fx-text-fill: #88ff88; -fx-font-size: 9px; -fx-font-weight: bold;" />
+            <Label fx:id="lblArmaEquipada" text="Nenhuma" style="-fx-text-fill: #88ff88; -fx-font-size: 13px; -fx-font-weight: bold;" />
+        </VBox>
+
+        <Button fx:id="btnInventario" onAction="#abrirInventario" text="Inventário" style="-fx-background-color: rgba(0,0,0,0.5); -fx-text-fill: #88ff88; -fx-font-size: 12px; -fx-font-weight: bold; -fx-background-radius: 4; -fx-border-radius: 4; -fx-border-color: #88ff88; -fx-border-width: 1; -fx-padding: 6 12; -fx-cursor: hand;" />
+    </HBox>
+
+    <!-- 4. Diálogos, Falas e Controles (Sobrepostos no rodapé) -->
+    <VBox layoutX="20.0" layoutY="490.0" prefWidth="940.0" spacing="10.0" alignment="CENTER">
+        <!-- Local e Personagem (Texto simples com fundo escuro para legibilidade) -->
+        <HBox spacing="15.0" alignment="CENTER_LEFT">
+            <Label fx:id="lblLocalNome" text="Local" style="-fx-text-fill: #ffffff; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 3 8; -fx-background-radius: 4;" />
+            <Label fx:id="lblPersonagemNome" text="Personagem" style="-fx-text-fill: #88ff88; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 3 8; -fx-background-radius: 4;" />
+        </HBox>
+
+        <!-- História / Eventos (Sem bordas roxas, com fundo translúcido para contraste) -->
+        <Label fx:id="lblTextoGameplay" text="Texto do jogo..." wrapText="true" minHeight="50.0" prefHeight="50.0" maxHeight="50.0" prefWidth="940.0" style="-fx-background-color: rgba(0, 0, 0, 0.75); -fx-padding: 10 15; -fx-background-radius: 6; -fx-text-fill: #ffffff; -fx-font-size: 13px;" />
+
+        <!-- Painel de Combate (Simples) -->
+        <HBox fx:id="paneCombateInimigo" spacing="15.0" alignment="CENTER_LEFT" managed="false" visible="false" style="-fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 5 15; -fx-background-radius: 4;">
+            <Label fx:id="lblInimigoNome" text="Inimigo" style="-fx-text-fill: #ff5252; -fx-font-size: 14px; -fx-font-weight: bold;" />
+            <Label text="|" style="-fx-text-fill: #666666;" />
+            <Label text="Vida do Inimigo:" style="-fx-text-fill: #ffffff; -fx-font-size: 13px;" />
+            <Label fx:id="lblInimigoVidaVal" text="50/50" style="-fx-text-fill: #ff5252; -fx-font-size: 13px; -fx-font-weight: bold;" />
+        </HBox>
+
+        <!-- Área de Ações e Botões Horizontais -->
+        <VBox spacing="10.0" alignment="CENTER" prefHeight="70.0" minHeight="70.0">
+            <!-- Botões de Escolha Narrativa (HBox) -->
+            <HBox fx:id="boxEscolhasNarrativas" spacing="15.0" alignment="CENTER">
+            </HBox>
+
+            <!-- Botões de Batalha (HBox) -->
+            <HBox fx:id="boxEscolhasCombate" spacing="15.0" alignment="CENTER" managed="false" visible="false">
+                <Button fx:id="btnAtacar" onAction="#atacar" style="-fx-background-color: #aa3333; -fx-text-fill: #ffffff; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 4; -fx-border-radius: 4; -fx-border-color: #cc4444; -fx-border-width: 1; -fx-padding: 8 20; -fx-cursor: hand;" text="ATACAR" />
+                <Button fx:id="btnDefender" onAction="#defender" style="-fx-background-color: #2e2e2e; -fx-text-fill: #cccccc; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 4; -fx-border-radius: 4; -fx-border-color: #444444; -fx-border-width: 1; -fx-padding: 8 20; -fx-cursor: hand;" text="DEFENDER" />
+                <Button fx:id="btnUsarItemCombate" onAction="#usarItemCombate" style="-fx-background-color: #2e2e2e; -fx-text-fill: #ffffff; -fx-font-size: 12px; -fx-font-weight: bold; -fx-background-radius: 4; -fx-border-radius: 4; -fx-border-color: #555555; -fx-border-width: 1; -fx-padding: 6 12; -fx-cursor: hand;" text="USAR ITEM" />
+            </HBox>
+
+            <!-- Painel do Inventário Embutido (HBox) -->
+            <HBox fx:id="boxInventario" spacing="20.0" alignment="CENTER" managed="false" visible="false" style="-fx-background-color: rgba(0, 0, 0, 0.85); -fx-padding: 8 15; -fx-background-radius: 8;">
+                <ListView fx:id="listItens" prefWidth="250.0" prefHeight="55.0" style="-fx-background-color: #2a2a2a; -fx-border-color: #444444; -fx-border-radius: 4; -fx-background-radius: 4;" />
+                <HBox spacing="15.0" alignment="CENTER">
+                    <ImageView fx:id="imgItem" fitWidth="40.0" fitHeight="40.0" preserveRatio="true" />
+                    <Label fx:id="lblDescricaoItem" text="Selecione um item" wrapText="true" maxWidth="250.0" style="-fx-text-fill: #ffffff; -fx-font-size: 11px;" />
+                    <Button fx:id="btnUsarItem" text="USAR" onAction="#usarItem" style="-fx-background-color: #444444; -fx-text-fill: #ffffff; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 4; -fx-border-radius: 4; -fx-border-color: #666666; -fx-border-width: 1; -fx-padding: 8 20; -fx-cursor: hand;" />
+                    <Button fx:id="btnVoltarInventario" text="VOLTAR" onAction="#voltarInventario" style="-fx-background-color: #2e2e2e; -fx-text-fill: #cccccc; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 4; -fx-border-radius: 4; -fx-border-color: #444444; -fx-border-width: 1; -fx-padding: 8 20; -fx-cursor: hand;" />
+                </HBox>
+            </HBox>
+        </VBox>
+    </VBox>
+</Pane>

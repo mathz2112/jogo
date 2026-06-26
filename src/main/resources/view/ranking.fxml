@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="20.0" style="-fx-font-family: 'Segoe UI', Arial, sans-serif; -fx-background-color: #1e1e1e; -fx-padding: 30; -fx-alignment: center;" prefWidth="960.0" prefHeight="640.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RankingController">
+
+    <Label text="RANKING DE PARTIDAS" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #ffffff;" />
+
+    <ListView fx:id="listRanking" VBox.vgrow="ALWAYS" maxWidth="850.0" style="-fx-background-color: #2a2a2a; -fx-border-color: #444444; -fx-border-radius: 4; -fx-background-radius: 4;" />
+
+    <HBox spacing="15.0" alignment="CENTER">
+        <Button fx:id="btnVoltar" text="Voltar ao Menu" onAction="#voltar" style="-fx-background-color: #2e2e2e; -fx-text-fill: #cccccc; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 4; -fx-border-radius: 4; -fx-border-color: #444444; -fx-border-width: 1; -fx-padding: 8 20; -fx-cursor: hand;" prefWidth="180.0" />
+    </HBox>
+</VBox>

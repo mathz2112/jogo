@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" spacing="25.0" style="-fx-font-family: 'Segoe UI', Arial, sans-serif; -fx-background-color: #1e1e1e; -fx-padding: 30; -fx-alignment: center; -fx-background-image: url('images/menu.png'); -fx-background-size: cover; -fx-background-repeat: no-repeat; -fx-background-position: center;" prefWidth="960.0" prefHeight="640.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuController">
+    
+    <VBox alignment="CENTER" spacing="10.0">
+        <Label text="Beyond the Walls" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: red;">
+            <font>
+                <Font name="System Bold" size="36.0" />
+            </font>
+        </Label>
+        <Label text="O Desaparecimento de Pintas" style="-fx-font-size: 16px; -fx-text-fill: red;">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+    </VBox>
+
+    <VBox alignment="CENTER" spacing="15.0" maxWidth="350.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 5;">
+        <padding>
+            <Insets top="25.0" right="25.0" bottom="25.0" left="25.0" />
+        </padding>
+        <Button fx:id="btnJogar" text="JOGAR" onAction="#jogarTela" style="-fx-background-color: #444444; -fx-text-fill: #ffffff; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 4; -fx-border-radius: 4; -fx-border-color: #666666; -fx-border-width: 1; -fx-padding: 8 20; -fx-cursor: hand;" prefWidth="250.0" />
+        <Button fx:id="btnRanking" text="RANKING" onAction="#ranking" style="-fx-background-color: #2e2e2e; -fx-text-fill: #cccccc; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 4; -fx-border-radius: 4; -fx-border-color: #444444; -fx-border-width: 1; -fx-padding: 8 20; -fx-cursor: hand;" prefWidth="250.0" />
+        <Button fx:id="btnCreditos" text="CRÉDITOS" onAction="#creditos" style="-fx-background-color: #2e2e2e; -fx-text-fill: #cccccc; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 4; -fx-border-radius: 4; -fx-border-color: #444444; -fx-border-width: 1; -fx-padding: 8 20; -fx-cursor: hand;" prefWidth="250.0" />
+        <Button fx:id="btnEncerrar" text="ENCERRAR" onAction="#encerrar" style="-fx-background-color: #2e2e2e; -fx-text-fill: #cccccc; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 4; -fx-border-radius: 4; -fx-border-color: #444444; -fx-border-width: 1; -fx-padding: 8 20; -fx-cursor: hand;" prefWidth="250.0" />
+    </VBox>
+    
+    <Label fx:id="lblStatusBanco" text="Banco de Dados: Conectando..." style="-fx-text-fill: #888888; -fx-font-size: 11px;" />
+</VBox>

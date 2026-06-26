@@ -1,44 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import model.Arma;
+import util.tipoArma;
+import util.tipoItem;
 
-/**
- *
- * @author aluno
- */
 public class ArmaDAO {
-     public void armaDAO(Arma arma, int itemId) {
-
-        String sql = "INSERT INTO arma (item_id, tipo_arma, bonus_dano) VALUES (?, ?, ?)";
-
-        try {
-
-            Connection conn = ConnectionFactory.getConnection();
-
-            PreparedStatement stmt = conn.prepareStatement(sql);
-
-            stmt.setInt(1, itemId);
-            stmt.setString(2, arma.getTipoArma().toString());
-            stmt.setInt(3, arma.getDanoBonus());
-
-            stmt.executeUpdate();
-
-            System.out.println("Arma salva com sucesso!");
-
-            stmt.close();
-            conn.close();
-
-        } catch (SQLException e) {
-
-            System.out.println(e);
-
-        }
+    public List<Arma> listarArmas() {
+        List<Arma> lista = new ArrayList<>();
+        lista.add(new Arma(tipoArma.LIVRO_GOVERNO, 10, "Livro do Governo", tipoItem.ARMA, "Um livro pesado distribuído pelo governo. Dói só de olhar."));
+        lista.add(new Arma(tipoArma.EXTINTOR, 20, "Extintor de Incêndio", tipoItem.ARMA, "Um extintor de CO2 vermelho brilhante."));
+        lista.add(new Arma(tipoArma.CORDA, 12, "Corda", tipoItem.ARMA, "Uma corda de sisal grossa."));
+        lista.add(new Arma(tipoArma.REDE_VOLEI, 0, "Rede de Vôlei", tipoItem.ARMA, "Pode ser usada apenas uma vez em combate para reduzir o dano do adversário."));
+        return lista;
     }
 }

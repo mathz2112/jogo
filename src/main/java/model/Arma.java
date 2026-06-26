@@ -1,43 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
 package model;
 
 import util.tipoArma;
+import util.tipoItem;
 
-/**
- * 
- * @author aluno
- */
-public class Arma extends Item{
+public class Arma extends Item {
     private tipoArma tipoArma;
     private int danoBonus;
 
-    public tipoArma getTipoArma() {
-        return tipoArma;
-    }
-
-    public void setTipoArma(tipoArma tipoArma) {
-        this.tipoArma = tipoArma;
-    }
-
-    public int getDanoBonus() {
-        return danoBonus;
-    }
-
-    public void setDanoBonus(int danoBonus) {
-        this.danoBonus = danoBonus;
-    }
-
-    public Arma(tipoArma tipoArma, int danoBonus, String nome, util.tipoItem tipoItem, String descricao) {
-        super(nome, tipoItem, descricao);
+    public Arma(tipoArma tipoArma, int danoBonus, String nome, tipoItem tipo, String descricao) {
+        super(nome, tipo, descricao);
         this.tipoArma = tipoArma;
         this.danoBonus = danoBonus;
     }
-    
-    
 
+    public tipoArma getTipoArma() { return tipoArma; }
+    public void setTipoArma(tipoArma tipoArma) { this.tipoArma = tipoArma; }
+
+    public int getDanoBonus() { return danoBonus; }
+    public void setDanoBonus(int danoBonus) { this.danoBonus = danoBonus; }
 }
-
