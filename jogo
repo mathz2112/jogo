@@ -1,0 +1,97 @@
+CREATE TABLE estudante (
+
+    id SERIAL PRIMARY KEY,
+
+    vida INTEGER NOT NULL,
+
+    dano INTEGER NOT NULL,
+
+    dinheiro INTEGER NOT NULL,
+
+    xp INTEGER NOT NULL
+
+);
+
+CREATE TABLE item (
+
+    id SERIAL PRIMARY KEY,
+
+    nome VARCHAR(100) NOT NULL,
+
+    descricao VARCHAR(100) NOT NULL,
+
+    tipo_item VARCHAR(30) NOT NULL
+
+);
+
+CREATE TABLE arma (
+
+    id SERIAL PRIMARY KEY,
+
+    item_id INTEGER UNIQUE,
+
+    tipo_arma VARCHAR(50) NOT NULL,
+
+    bonus_dano INTEGER NOT NULL,
+
+    FOREIGN KEY (item_id) REFERENCES item(id)
+
+);
+
+CREATE TABLE comida (
+
+    id SERIAL PRIMARY KEY,
+
+    item_id INTEGER UNIQUE,
+
+    cura INTEGER NOT NULL,
+
+    preco INTEGER NOT NULL,
+
+    FOREIGN KEY (item_id) REFERENCES item(id)
+
+);
+
+CREATE TABLE inimigo (
+
+    id SERIAL PRIMARY KEY,
+
+    nome VARCHAR(100) NOT NULL,
+
+    vida INTEGER NOT NULL,
+
+    dano INTEGER NOT NULL,
+
+    xp_concedido INTEGER NOT NULL
+
+);
+
+CREATE TABLE chefe (
+
+    id SERIAL PRIMARY KEY,
+
+    inimigo_id INTEGER UNIQUE,
+
+    habilidade_especial VARCHAR(100),
+
+    FOREIGN KEY (inimigo_id) REFERENCES inimigo(id)
+
+);
+
+CREATE TABLE partida (
+
+    id SERIAL PRIMARY KEY,
+
+    data TIMESTAMP NOT NULL,
+
+    estudante_id INTEGER,
+
+    pontuacao INTEGER NOT NULL,
+
+    inimigos_derrotados INTEGER NOT NULL,
+
+    chefe_derrotado BOOLEAN NOT NULL,
+
+    FOREIGN KEY (estudante_id) REFERENCES estudante(id)
+
+);
